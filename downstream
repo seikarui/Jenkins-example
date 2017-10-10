@@ -7,6 +7,7 @@ node('linux-slave') {
 
     stage('deploy') {
     parallel linux: {
+            input 'Do you want to run parallel 1?'
             node('linux-slave') {
                 sh 'echo parallel 1'
                 sh 'sleep 20'
@@ -14,6 +15,7 @@ node('linux-slave') {
             }
         },
         windows: {
+            input 'Do you want to run parallel 2?'
             node('linux-slave') {
                 sh 'echo parallel 2'
 
