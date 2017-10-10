@@ -4,4 +4,22 @@ node('linux-slave') {
         sh "echo package number is ${env.PACKAGE_NUMBER}"
         sh "echo Downstream success."
     }
+
+    stage('deploy') {
+    parallel linux: {
+            node('linux-slave') {
+                sh 'echo parallel 1'
+                sh 'sleep 20'
+                sh 'echo finish parallel 1.'
+            }
+        },
+        windows: {
+            node('linux-slave') {
+                sh 'echo parallel 2'
+
+            }
+        }
+
+    }
+
 }
