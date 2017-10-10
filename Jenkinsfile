@@ -1,20 +1,11 @@
-pipeline {
-    agent { docker 'node:6.3' }
-    stages {
-        stage('build') {
-            steps {
-                sh 'npm --version'
-                sh 'echo "Hello World"'
-                sh '''
-                    echo "Multiline shell steps works too"
-                    ls -lah
-                '''
-            }
-        }
+node('linux-slave') {
+    stage('Preparation') {
+        sh "echo preparation job."
+        sh "echo preparation success."
+
     }
-    post {
-      always {
-        echo 'this is a post steps.'
-      }
+
+    stage('run another job'){
+        build job: 'sk-downstream', parameters: [[$class: 'StringParameterValue', name: 'PACKAGE_NUMBER', value: "${env.BUILD_NUMBER}"]], wait: true
     }
 }

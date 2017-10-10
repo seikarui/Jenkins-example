@@ -1,0 +1,7 @@
+node('linux-slave') {
+    stage('Downstream Job') {
+        sh "echo Downstream job."
+        sh "echo package number is ${env.PACKAGE_NUMBER}"
+        sh "echo Downstream success."
+    }
+}
